@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const PizzaBlock = ({ title, price, imageUrl, types, sizes }) => {
+const PizzaBlock = ({ title, price, imageUrl, types, sizes, id }) => {
   const typeName = ["тонкое", "традиционное"];
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
@@ -14,6 +14,7 @@ const PizzaBlock = ({ title, price, imageUrl, types, sizes }) => {
           <ul>
             {types.map((type, i) => (
               <li
+                key={type}
                 onClick={() => setActiveType(i)}
                 className={activeType === i ? "active" : ""}
               >
@@ -24,6 +25,7 @@ const PizzaBlock = ({ title, price, imageUrl, types, sizes }) => {
           <ul>
             {sizes.map((size, i) => (
               <li
+                key={size}
                 onClick={() => setActiveSize(i)}
                 className={activeSize === i ? "active" : ""}
               >
