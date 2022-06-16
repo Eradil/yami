@@ -16,7 +16,7 @@ const Categories = () => {
       <div className="categories">
         <ul>
           {categories.map((item, i) => (
-            //если список статичный, т.е не меняется, то есть можно в key передать индекс
+            //если список статичный, т.е не меняется, тогда можно в key передать индекс
             <li
               key={i}
               onClick={() => setActiveIndex(i)}
