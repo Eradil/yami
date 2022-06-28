@@ -6,24 +6,28 @@ import Sceleton from "../components/PizzaBlock/Sceleton";
 import Sort from "../components/Sort";
 const API = "https://62aa0b24371180affbce1a8a.mockapi.io/items?";
 
-const Home = () => {
+const Home = ({ searchValue }) => {
   const [activeCategory, SetActiveCategory] = useState(0);
   const [activeSort, setActiveSort] = useState({
     name: "популярности",
     sortProperty: "raiting",
   });
+  console.log(searchValue);
   const [item, setItem] = useState([]);
   const [isLoading, setIsLOading] = useState(true);
-
-  console.log(activeSort);
+  const pizzas = item.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const sceleton = [...new Array(6)].map((_, index) => (
+    <Sceleton key={index} />
+  ));
 
   const order = activeSort.sortProperty.includes("-") ? `asc` : "desc";
   const sortBy = activeSort.sortProperty.replace("-", "");
   const category = activeCategory > 0 ? `category=${activeCategory}` : "";
+  const search = searchValue ? `&search=${searchValue}` : "";
 
   useEffect(() => {
     setIsLOading(true);
-    fetch(`${API}${category}&sortBy=${sortBy}&order=${order}`)
+    fetch(`${API}${category}&sortBy=${sortBy}&order=${order}${search}`)
       .then((response) => {
         return response.json();
       })
@@ -32,7 +36,7 @@ const Home = () => {
         setIsLOading(false);
         window.scrollTo(0, 0);
       });
-  }, [activeCategory, activeSort]);
+  }, [activeCategory, activeSort, searchValue]);
   return (
     <div>
       <div className="content__top">
@@ -43,11 +47,7 @@ const Home = () => {
         <Sort value={activeSort} clickToChangeSort={(i) => setActiveSort(i)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {isLoading
-          ? [...new Array(6)].map((_, index) => <Sceleton key={index} />)
-          : item.map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
-      </div>
+      <div className="content__items">{isLoading ? sceleton : pizzas}</div>
     </div>
   );
 };
