@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Categories from "../components/Categories";
+import Pagination from "../components/Pagination/Pagination";
 import PizzaBlock from "../components/PizzaBlock";
 import Sceleton from "../components/PizzaBlock/Sceleton";
 import Sort from "../components/Sort";
@@ -12,14 +13,14 @@ const Home = ({ searchValue }) => {
     name: "популярности",
     sortProperty: "raiting",
   });
-  console.log(searchValue);
   const [item, setItem] = useState([]);
   const [isLoading, setIsLOading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const pizzas = item.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
   const sceleton = [...new Array(6)].map((_, index) => (
     <Sceleton key={index} />
   ));
-
   const order = activeSort.sortProperty.includes("-") ? `asc` : "desc";
   const sortBy = activeSort.sortProperty.replace("-", "");
   const category = activeCategory > 0 ? `category=${activeCategory}` : "";
@@ -27,7 +28,9 @@ const Home = ({ searchValue }) => {
 
   useEffect(() => {
     setIsLOading(true);
-    fetch(`${API}${category}&sortBy=${sortBy}&order=${order}${search}`)
+    fetch(
+      `${API}page=${currentPage}&limit=4${category}&sortBy=${sortBy}&order=${order}${search}`
+    )
       .then((response) => {
         return response.json();
       })
@@ -36,7 +39,7 @@ const Home = ({ searchValue }) => {
         setIsLOading(false);
         window.scrollTo(0, 0);
       });
-  }, [activeCategory, activeSort, searchValue]);
+  }, [activeCategory, activeSort, searchValue, currentPage]);
   return (
     <div>
       <div className="content__top">
@@ -48,6 +51,7 @@ const Home = ({ searchValue }) => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? sceleton : pizzas}</div>
+      <Pagination onChangePage={(number) => setCurrentPage(number)} />
     </div>
   );
 };
