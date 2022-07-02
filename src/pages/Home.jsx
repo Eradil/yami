@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useContext } from "react";
+import { SearchContext } from "../App";
 
 import Categories from "../components/Categories";
 import Pagination from "../components/Pagination/Pagination";
@@ -7,7 +9,8 @@ import Sceleton from "../components/PizzaBlock/Sceleton";
 import Sort from "../components/Sort";
 const API = "https://62aa0b24371180affbce1a8a.mockapi.io/items?";
 
-const Home = ({ searchValue }) => {
+const Home = () => {
+  const { searchValue } = useContext(SearchContext);
   const [activeCategory, SetActiveCategory] = useState(0);
   const [activeSort, setActiveSort] = useState({
     name: "популярности",
