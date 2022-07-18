@@ -8,18 +8,23 @@ import Pagination from "../components/Pagination/Pagination";
 import PizzaBlock from "../components/PizzaBlock";
 import Sceleton from "../components/PizzaBlock/Sceleton";
 import Sort from "../components/Sort";
-import { SetActiveCategory, setSort } from "../redux/slices/filterSlice";
+import {
+  SetActiveCategory,
+  setSort,
+  setCurrentPage,
+} from "../redux/slices/filterSlice";
 const API = "https://62aa0b24371180affbce1a8a.mockapi.io/items?";
 
 const Home = () => {
   const { searchValue } = useContext(SearchContext);
-  const activeCategory = useSelector((state) => state.filter.activeCategory);
-  const sort = useSelector((state) => state.filter.sort);
+  // const activeCategory = useSelector((state) => state.filter.activeCategory);
+  const { sort, activeCategory, currentPage } = useSelector(
+    (state) => state.filter
+  );
   const dispatch = useDispatch();
 
   const [item, setItem] = useState([]);
   const [isLoading, setIsLOading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
 
   const pizzas = item.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
   const sceleton = [...new Array(6)].map((_, index) => (
@@ -44,6 +49,9 @@ const Home = () => {
         window.scrollTo(0, 0);
       });
   }, [activeCategory, sort, searchValue, currentPage]);
+  const onChangePage = (number) => {
+    dispatch(setCurrentPage(number));
+  };
   return (
     <div>
       <div className="content__top">
@@ -56,7 +64,7 @@ const Home = () => {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? sceleton : pizzas}</div>
       {/* pagination */}
-      <Pagination onChangePage={(number) => setCurrentPage(number)} />
+      <Pagination onChangePage={onChangePage} />
     </div>
   );
 };
