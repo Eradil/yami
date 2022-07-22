@@ -11,7 +11,7 @@ import "./scss/app.scss";
 export const SearchContext = createContext();
 const App = () => {
   const [searchValue, setSearchValue] = useState("");
-  console.log(searchValue);
+  // console.log(searchValue);
   return (
     <div>
       <div className="wrapper">
