@@ -12,6 +12,7 @@ export const sort = [
 const Sort = ({ value, clickToChangeSort }) => {
   const [open, setOpen] = useState(false);
   const sortRef = useRef();
+
   const onClickActive = (i) => {
     clickToChangeSort(i);
     setOpen(!open);
@@ -21,6 +22,7 @@ const Sort = ({ value, clickToChangeSort }) => {
     const handleClickOutside = (event) => {
       if (!event.path.includes(sortRef.current)) {
         setOpen(false);
+        console.log(sortRef);
       }
     };
     document.body.addEventListener("click", handleClickOutside);
