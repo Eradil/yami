@@ -4,15 +4,18 @@ import { useDispatch } from "react-redux/es/exports";
 import { minusItem, plusItem, removeItem } from "../redux/slices/cartSlice";
 const CartItem = ({ id, count, title, price, types, imageUrl, sizes }) => {
   const dispatch = useDispatch();
-  const handleMinusItem = () => {
+  const onClickMinus = () => {
     dispatch(minusItem(id));
   };
-  const handlePlusItem = () => {
+  const onClickPlus = () => {
     dispatch(plusItem(id));
   };
-  const handleRemoveItem = () => {
-    dispatch(removeItem(id));
+  const onClickRemove = () => {
+    if (window.confirm("Удалить пиццу?")) {
+      dispatch(removeItem(id));
+    }
   };
+
   return (
     <div>
       <div class="cart__item">
@@ -27,7 +30,7 @@ const CartItem = ({ id, count, title, price, types, imageUrl, sizes }) => {
         </div>
         <div class="cart__item-count">
           <div
-            onClick={handleMinusItem}
+            onClick={onClickMinus}
             class="button button--outline button--circle cart__item-count-minus"
           >
             <svg
@@ -48,9 +51,11 @@ const CartItem = ({ id, count, title, price, types, imageUrl, sizes }) => {
             </svg>
           </div>
           <b>{count}</b>
-          <div class="button button--outline button--circle cart__item-count-plus">
+          <div
+            onClick={onClickPlus}
+            class="button button--outline button--circle cart__item-count-plus"
+          >
             <svg
-              onClick={handlePlusItem}
               width="10"
               height="10"
               viewBox="0 0 10 10"
@@ -71,10 +76,9 @@ const CartItem = ({ id, count, title, price, types, imageUrl, sizes }) => {
         <div class="cart__item-price">
           <b>{price * count} ₽</b>
         </div>
-        <div class="cart__item-remove">
+        <div onClick={onClickRemove} class="cart__item-remove">
           <div class="button button--outline button--circle">
             <svg
-              onClick={handleRemoveItem}
               width="10"
               height="10"
               viewBox="0 0 10 10"
