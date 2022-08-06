@@ -4,10 +4,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
-const Details = () => {
+const Details: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [onePizza, setOnePizza] = useState();
+  const [onePizza, setOnePizza] = useState<{
+    imageUrl: string;
+    title: string;
+    price: number;
+  }>();
   console.log(onePizza);
   useEffect(() => {
     const getOnePizza = async () => {
@@ -26,7 +30,7 @@ const Details = () => {
   }, []);
 
   if (!onePizza) {
-    return "Loading...";
+    return <>Loading...</>;
   }
   return (
     <div className="container">
