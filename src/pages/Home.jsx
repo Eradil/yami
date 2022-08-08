@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux/es/exports";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import Categories from "../components/Categories";
 import Pagination from "../components/Pagination/Pagination";
 import PizzaBlock from "../components/PizzaBlock";
@@ -23,7 +23,11 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const pizzas = items.map((obj) => (
+    <Link key={obj.id} to={`pizza/${obj.id}`}>
+      <PizzaBlock {...obj} />
+    </Link>
+  ));
   const sceleton = [...new Array(6)].map((_, index) => (
     <Sceleton key={index} />
   ));

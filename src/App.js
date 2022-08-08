@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import React, { Routes, Route } from "react-router-dom";
+import Details from "./components/Details";
 
 import Header from "./components/Header";
 import Cart from "./pages/Cart";
@@ -18,6 +19,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/pizza/:id" element={<Details />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
