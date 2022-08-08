@@ -11,7 +11,7 @@ export const sort = [
 ];
 const Sort = ({ value, clickToChangeSort }) => {
   const [open, setOpen] = useState(false);
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
   const onClickActive = (i) => {
     clickToChangeSort(i);

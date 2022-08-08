@@ -4,14 +4,16 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
-const Details: React.FC = () => {
+const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [onePizza, setOnePizza] = useState<{
     imageUrl: string;
     title: string;
     price: number;
+    rating: number;
   }>();
+
   console.log(onePizza);
   useEffect(() => {
     const getOnePizza = async () => {
@@ -30,13 +32,19 @@ const Details: React.FC = () => {
   }, []);
 
   if (!onePizza) {
-    return <>Loading...</>;
+    return <>"Loading..."</>;
   }
   return (
     <div className="container">
-      <img src={onePizza.imageUrl} alt="imageOfPizza" />
+      <img
+        width={200}
+        height={200}
+        src={onePizza.imageUrl}
+        alt="imageOfPizza"
+      />
       <h3>{onePizza.title}</h3>
       <p>{onePizza.price} руб.</p>
+      <p>{onePizza.rating} рейтинг</p>
     </div>
   );
 };

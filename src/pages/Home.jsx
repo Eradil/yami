@@ -16,6 +16,7 @@ import {
 import { fetchPizzas } from "../redux/slices/pizzaSlice";
 
 const Home = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { sort, activeCategory, currentPage, searchValue } =
     useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
@@ -50,7 +51,26 @@ const Home = () => {
 
   useEffect(() => {
     getPizzas();
-  }, []);
+  }, [
+    activeCategory,
+    sort,
+    searchValue,
+    currentPage,
+    category,
+    order,
+    sortBy,
+    search,
+    searchParams,
+  ]);
+  useEffect(() => {
+    setSearchParams({
+      category,
+      sortBy,
+      order,
+      search,
+      currentPage,
+    });
+  }, [currentPage]);
 
   const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
@@ -65,8 +85,7 @@ const Home = () => {
         <Sort value={sort} clickToChangeSort={(i) => dispatch(setSort(i))} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-
-      {status == "error" ? (
+      {status === "error" ? (
         <div style={{ textAlign: "center" }}>
           <h2>Произошла ошибка, данные не обнаружены!</h2>
           <br />
