@@ -2,6 +2,15 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { addItem, selectCartItemById } from "../../redux/slices/cartSlice";
 
+// type PizzaBlockProps = {
+//   title: string;
+//   price: number;
+//   imageUrl: string;
+//   types: string[];
+//   sizes: number[];
+//   id: string;
+// };
+
 const PizzaBlock = ({ title, price, imageUrl, types, sizes, id }) => {
   const typeName = ["тонкое", "традиционное"];
   const [activeType, setActiveType] = useState(0);

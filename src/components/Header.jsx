@@ -2,11 +2,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import logoSvg from "../assets/img/pizza-logo.svg";
-import { selectCart } from "../redux/slices/cartSlice";
 import Search from "./Search";
+import { selectCart } from "../redux/slices/cartSlice";
 
 const Header = () => {
-  const { totalPrice, items } = useSelector(selectCart);
+  const { items, totalPrice } = useSelector(selectCart);
   const totalItems = items.reduce((sum, items) => sum + items.count, 0);
   return (
     <div>
