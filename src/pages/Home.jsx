@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux/es/exports";
-import { Link } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Categories from "../components/Categories";
 import Pagination from "../components/Pagination/Pagination";
 import PizzaBlock from "../components/PizzaBlock";
@@ -16,17 +16,14 @@ import {
 import { fetchPizzas } from "../redux/slices/pizzaSlice";
 
 const Home = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { sort, activeCategory, currentPage, searchValue } =
     useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
 
   const dispatch = useDispatch();
 
-  const pizzas = items.map((obj) => (
-    <Link key={obj.id} to={`pizza/${obj.id}`}>
-      <PizzaBlock {...obj} />
-    </Link>
-  ));
+  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
   const sceleton = [...new Array(6)].map((_, index) => (
     <Sceleton key={index} />
   ));
@@ -50,7 +47,26 @@ const Home = () => {
 
   useEffect(() => {
     getPizzas();
-  }, []);
+  }, [
+    activeCategory,
+    sort,
+    searchValue,
+    currentPage,
+    category,
+    order,
+    sortBy,
+    search,
+    searchParams,
+  ]);
+  useEffect(() => {
+    setSearchParams({
+      category,
+      sortBy,
+      order,
+      search,
+      currentPage,
+    });
+  }, [currentPage]);
 
   const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
@@ -65,8 +81,7 @@ const Home = () => {
         <Sort value={sort} clickToChangeSort={(i) => dispatch(setSort(i))} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-
-      {status == "error" ? (
+      {status === "error" ? (
         <div style={{ textAlign: "center" }}>
           <h2>Произошла ошибка, данные не обнаружены!</h2>
           <br />

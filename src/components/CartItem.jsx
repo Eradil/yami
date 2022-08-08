@@ -18,20 +18,20 @@ const CartItem = ({ id, count, title, price, types, imageUrl, sizes }) => {
 
   return (
     <div>
-      <div className="cart__item">
-        <div className="cart__item-img">
-          <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+      <div class="cart__item">
+        <div class="cart__item-img">
+          <img class="pizza-block__image" src={imageUrl} alt="Pizza" />
         </div>
-        <div className="cart__item-info">
+        <div class="cart__item-info">
           <h3>{title}</h3>
           <p>
             {types} {sizes} см.
           </p>
         </div>
-        <div className="cart__item-count">
+        <div class="cart__item-count">
           <div
             onClick={onClickMinus}
-            className="button button--outline button--circle cart__item-count-minus"
+            class="button button--outline button--circle cart__item-count-minus"
           >
             <svg
               width="10"
@@ -53,7 +53,7 @@ const CartItem = ({ id, count, title, price, types, imageUrl, sizes }) => {
           <b>{count}</b>
           <div
             onClick={onClickPlus}
-            className="button button--outline button--circle cart__item-count-plus"
+            class="button button--outline button--circle cart__item-count-plus"
           >
             <svg
               width="10"
@@ -73,11 +73,11 @@ const CartItem = ({ id, count, title, price, types, imageUrl, sizes }) => {
             </svg>
           </div>
         </div>
-        <div className="cart__item-price">
+        <div class="cart__item-price">
           <b>{price * count} ₽</b>
         </div>
-        <div onClick={onClickRemove} className="cart__item-remove">
-          <div className="button button--outline button--circle">
+        <div onClick={onClickRemove} class="cart__item-remove">
+          <div class="button button--outline button--circle">
             <svg
               width="10"
               height="10"

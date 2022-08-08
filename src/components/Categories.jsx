@@ -1,10 +1,5 @@
 import React from "react";
 
-// type CategoriesProps = {
-//   value: number;
-//   clickToChangeIndex: any;
-// };
-
 const Categories = ({ value, clickToChangeIndex }) => {
   // console.log(value);
   const categories = [
