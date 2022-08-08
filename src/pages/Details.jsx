@@ -1,18 +1,18 @@
-// @ts-check
 import React from "react";
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
-const Details: React.FC = () => {
+const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [onePizza, setOnePizza] = useState<{
-    imageUrl: string;
-    title: string;
-    price: number;
-  }>();
+  const [onePizza, setOnePizza] = useState();
+  // const [onePizza, setOnePizza] = useState<{
+  //   imageUrl: string;
+  //   title: string;
+  //   price: number;
+  // }>();
   console.log(onePizza);
   useEffect(() => {
     const getOnePizza = async () => {
@@ -31,7 +31,7 @@ const Details: React.FC = () => {
   }, []);
 
   if (!onePizza) {
-    return <>Loading...</>;
+    return "Loading...";
   }
   return (
     <div className="container">
