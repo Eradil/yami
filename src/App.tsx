@@ -1,4 +1,3 @@
-import { createContext, useState } from "react";
 import React, { Routes, Route } from "react-router-dom";
 import Details from "./components/Details";
 
@@ -9,7 +8,6 @@ import NotFound from "./pages/NotFound";
 
 import "./scss/app.scss";
 
-export const SearchContext = createContext();
 const App = () => {
   return (
     <div>

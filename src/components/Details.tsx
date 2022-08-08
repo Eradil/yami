@@ -7,7 +7,12 @@ import { useState } from "react";
 const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [onePizza, setOnePizza] = useState();
+  const [onePizza, setOnePizza] = useState<{
+    imageUrl: string;
+    title: string;
+    price: number;
+    rating: number;
+  }>();
 
   console.log(onePizza);
   useEffect(() => {
@@ -27,7 +32,7 @@ const Details = () => {
   }, []);
 
   if (!onePizza) {
-    return "Loading...";
+    return <>"Loading..."</>;
   }
   return (
     <div className="container">
