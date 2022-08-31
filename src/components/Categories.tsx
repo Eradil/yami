@@ -1,7 +1,11 @@
 import React from "react";
 
-const Categories = ({ value, clickToChangeIndex }) => {
-  // console.log(value);
+type CategoryProps = {
+  value: number;
+  clickToChangeIndex: (idx: number) => void;
+};
+
+const Categories: React.FC<CategoryProps> = ({ value, clickToChangeIndex }) => {
   const categories = [
     "Все",
     "Мясные",

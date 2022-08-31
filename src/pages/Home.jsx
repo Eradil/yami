@@ -23,11 +23,7 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-  const pizzas = items.map((obj) => (
-    <Link key={obj.id} to={`pizza/${obj.id}`}>
-      <PizzaBlock {...obj} />
-    </Link>
-  ));
+  const pizzas = items.map((obj) => <PizzaBlock {...obj} />);
   const sceleton = [...new Array(6)].map((_, index) => (
     <Sceleton key={index} />
   ));

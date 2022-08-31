@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux/es/exports";
+import { Link } from "react-router-dom";
 import { addItem, selectCartItemById } from "../../redux/slices/cartSlice";
 
 const PizzaBlock = ({ title, price, imageUrl, types, sizes, id }) => {
@@ -25,32 +26,35 @@ const PizzaBlock = ({ title, price, imageUrl, types, sizes, id }) => {
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-        <h4 className="pizza-block__title">{title}</h4>
-        <div className="pizza-block__selector">
-          <ul>
-            {types.map((type, i) => (
-              <li
-                key={type}
-                onClick={() => setActiveType(i)}
-                className={activeType === i ? "active" : ""}
-              >
-                {typeName[type]}
-              </li>
-            ))}
-          </ul>
-          <ul>
-            {sizes.map((size, i) => (
-              <li
-                key={size}
-                onClick={() => setActiveSize(i)}
-                className={activeSize === i ? "active" : ""}
-              >
-                {size}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Link key={id} to={`pizza/${id}`}>
+          <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+          <h4 className="pizza-block__title">{title}</h4>
+
+          <div className="pizza-block__selector">
+            <ul>
+              {types.map((type, i) => (
+                <li
+                  key={type}
+                  onClick={() => setActiveType(i)}
+                  className={activeType === i ? "active" : ""}
+                >
+                  {typeName[type]}
+                </li>
+              ))}
+            </ul>
+            <ul>
+              {sizes.map((size, i) => (
+                <li
+                  key={size}
+                  onClick={() => setActiveSize(i)}
+                  className={activeSize === i ? "active" : ""}
+                >
+                  {size}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Link>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">от {price} ₽</div>
           <button className="button button--outline button--add">
