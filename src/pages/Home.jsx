@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux/es/exports";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Categories from "../components/Categories";
 import Pagination from "../components/Pagination/Pagination";
 import PizzaBlock from "../components/PizzaBlock";
 import Sceleton from "../components/PizzaBlock/Sceleton";
 import Sort from "../components/Sort";
+import { useAuth } from "../hooks/use-auth";
 import {
   SetActiveCategory,
   setSort,
@@ -20,10 +21,12 @@ const Home = () => {
   const { sort, activeCategory, currentPage, searchValue } =
     useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
+  const { isAuth } = useAuth();
 
   const dispatch = useDispatch();
 
-  const pizzas = items.map((obj) => <PizzaBlock {...obj} />);
+  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+
   const sceleton = [...new Array(6)].map((_, index) => (
     <Sceleton key={index} />
   ));
@@ -57,6 +60,7 @@ const Home = () => {
     sortBy,
     search,
     searchParams,
+    isAuth,
   ]);
   useEffect(() => {
     setSearchParams({
@@ -82,15 +86,10 @@ const Home = () => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === "error" ? (
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center", margin: "100px 0" }}>
           <h2>Произошла ошибка, данные не обнаружены!</h2>
           <br />
-          <p>любуйтесь котиком</p>
-          <img
-            width={500}
-            src="https://images.unsplash.com/photo-1525785967371-87ba44b3e6cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1173&q=80"
-            alt="empty"
-          />
+          <p>Попробуйте войти позже. Спасибо!</p>
         </div>
       ) : (
         <div className="content__items">

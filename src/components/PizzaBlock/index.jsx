@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/use-auth";
 import { addItem, selectCartItemById } from "../../redux/slices/cartSlice";
 
 const PizzaBlock = ({ title, price, imageUrl, types, sizes, id }) => {
@@ -12,6 +13,8 @@ const PizzaBlock = ({ title, price, imageUrl, types, sizes, id }) => {
 
   const addedCount = cartItem ? cartItem.count : 0;
 
+  const { isAuth } = useAuth();
+  console.log(isAuth);
   const onClickAddItem = () => {
     const item = {
       id,
@@ -23,13 +26,13 @@ const PizzaBlock = ({ title, price, imageUrl, types, sizes, id }) => {
     };
     dispatch(addItem(item));
   };
+
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
         <Link key={id} to={`pizza/${id}`}>
           <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
           <h4 className="pizza-block__title">{title}</h4>
-
           <div className="pizza-block__selector">
             <ul>
               {types.map((type, i) => (
@@ -70,7 +73,15 @@ const PizzaBlock = ({ title, price, imageUrl, types, sizes, id }) => {
                 fill="white"
               />
             </svg>
-            <span onClick={() => onClickAddItem()}>Добавить</span>
+            <span
+              onClick={() => {
+                isAuth
+                  ? onClickAddItem()
+                  : setTimeout(() => alert("Вам надо зарегистрироваться!"));
+              }}
+            >
+              Добавить
+            </span>
             {addedCount > 0 && <i>{addedCount}</i>}
           </button>
         </div>
