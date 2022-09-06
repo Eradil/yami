@@ -1,13 +1,19 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import logoSvg from "../assets/img/pizza-logo.svg";
+import { useAuth } from "../hooks/use-auth";
 import { selectCart } from "../redux/slices/cartSlice";
+import { removeUser } from "../redux/slices/authSlice";
 import Search from "./Search";
 
 const Header = () => {
+  const { isAuth, email } = useAuth();
+  const dispatch = useDispatch();
+
   const { totalPrice, items } = useSelector(selectCart);
   const totalItems = items.reduce((sum, items) => sum + items.count, 0);
+
   return (
     <div>
       <div className="header">
@@ -58,6 +64,23 @@ const Header = () => {
               <span>{totalItems}</span>
             </Link>
           </div>
+
+          {isAuth ? (
+            <h4
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => dispatch(removeUser())}
+            >
+              <span style={{ color: "orange" }}>Выход из </span>
+
+              {email}
+            </h4>
+          ) : (
+            <Link to={"/register"}>
+              <h4>Регистрация/Логин 🍕</h4>
+            </Link>
+          )}
         </div>
       </div>
     </div>
