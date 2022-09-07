@@ -75,6 +75,7 @@ const Home = () => {
   const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
   };
+
   return (
     <div>
       <div className="content__top">
