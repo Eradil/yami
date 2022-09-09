@@ -34,3 +34,32 @@
     color: #fff;
   }
 }
+
+@media (max-width: 595px) {
+  .root {
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
+  }
+}
+@media (max-width: 470px) {
+  .root {
+    width: 350px;
+    height: 160px;
+    border-radius: 10px;
+  }
+}
+@media (max-width: 420px) {
+  .root {
+    width: 300px;
+    height: 160px;
+    border-radius: 10px;
+  }
+}
+@media (max-width: 320px) {
+  .root {
+    width: 260px;
+    height: 160px;
+    border-radius: 10px;
+  }
+}

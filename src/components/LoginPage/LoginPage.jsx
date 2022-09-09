@@ -6,7 +6,7 @@ import style from "./LoginPage.module.scss";
 const LoginPage = () => {
   return (
     <div className={style.root}>
-      <h1>Логин</h1>
+      <h1 className={style.root_title}>Логин</h1>
       <Login />
       <p>
         или 👉

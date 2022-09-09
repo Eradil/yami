@@ -6,7 +6,7 @@ import style from "./RegisterPage.module.scss";
 const RegisterPage = () => {
   return (
     <div className={style.root}>
-      <h1>Регистрация</h1>
+      <h1 className={style.root_title}>Регистрация</h1>
       <SignUp />
       <p>
         Или у Bас есть аккаунт? 👉
