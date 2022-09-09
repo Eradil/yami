@@ -63,24 +63,23 @@ const Header = () => {
               </svg>
               <span>{totalItems}</span>
             </Link>
+            {isAuth ? (
+              <h4
+                style={{
+                  cursor: "pointer",
+                }}
+                onClick={() => dispatch(removeUser())}
+              >
+                <span style={{ color: "orange" }}>Выход из </span>
+
+                {email}
+              </h4>
+            ) : (
+              <Link to={"/register"}>
+                <h4>Регистрация/Логин 🍕</h4>
+              </Link>
+            )}
           </div>
-
-          {isAuth ? (
-            <h4
-              style={{
-                cursor: "pointer",
-              }}
-              onClick={() => dispatch(removeUser())}
-            >
-              <span style={{ color: "orange" }}>Выход из </span>
-
-              {email}
-            </h4>
-          ) : (
-            <Link to={"/register"}>
-              <h4>Регистрация/Логин 🍕</h4>
-            </Link>
-          )}
         </div>
       </div>
     </div>
